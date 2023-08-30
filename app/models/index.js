@@ -26,7 +26,7 @@ db.user = require("../models/user.js")(sequelize, Sequelize);
 db.role = require("../models/role.js")(sequelize, Sequelize);
 db.product = require("../models/product.js")(sequelize, Sequelize);
 db.quote = require("../models/quote.js")(sequelize, Sequelize);
-db.quoteItems = require("../models/quoteItems.js")(sequelize, Sequelize);
+db.quoteItems = require("../models/quoteItem.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles"

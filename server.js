@@ -28,10 +28,6 @@ app.use(
   })
 );
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to ecommerce application." });
-});
 
 function initial() {
     Role.create({
@@ -50,8 +46,10 @@ function initial() {
     });
 }
 
-require('./app/routes/auth.route')(app);
-require('./app/routes/user.route')(app);
+require('./app/routes/api.route')(app);
+// require('./app/routes/auth.route')(app);
+// require('./app/routes/user.route')(app);
+// require('./app/routes/product.route')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
