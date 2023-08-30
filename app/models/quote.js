@@ -8,6 +8,10 @@ module.exports = (sequelize, Sequelize) => {
       userId: {
         type: Sequelize.INTEGER
       },
+      status: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,

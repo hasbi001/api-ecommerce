@@ -3,10 +3,10 @@ const Product = db.product;
 const Op = db.Sequelize.Op;
 const logger = require("../helpers/writelog");
 
-// Create and Save a new Product
-exports.create = (req, res) => {
+// addtocart
+exports.addtocart = (req, res) => {
    // Validate request
-   if (!req.body.sku) {
+   if (!req.body.productId) {
         res.status(400).send({
         message: "Content can not be empty!"
         });
@@ -16,26 +16,45 @@ exports.create = (req, res) => {
     const Y = today.getFullYear();
     let m = today.getMonth() + 1; // Months start at 0!
     let d = today.getDate();
+    const user = User.findByPk(req.userId);
+    let result = [];
 
-    // Create a Product
-    const data = {
-        name: req.body.name,
-        sku: req.body.sku,
-        price: req.body.price,
-        stock: req.body.stock,
+    if (!user) {
+        res.status(400).send({
+            message: "user not found"
+        });
+        return;
+    }
+    const dataQuote = {
+        userId: user.id,
+        status: req.body.sku,
         createdAt: Y+"-"+m+"-"+d,
         updatedAt: Y+"-"+m+"-"+d,
     };
 
-    // Save Product in the database
-    Product.create(data)
+    Quotes.create(dataQuote)
     .then(data => {
-      res.send(data);
+       result.push(data); 
+      QuotesItems.create({
+        quoteId: data.id,
+        productId: req.body.productId,
+        product_name: req.body.productName,
+        price: req.body.price,
+        quantity: req.body.quantity
+      })
+      .then(item => {
+        result.push(item);
+        res.send(result);
+      })
+      .catch({
+        
+      });
+      
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Product."
+          err.message || "Some error occurred while creating the Quote."
       });
     });
 };
