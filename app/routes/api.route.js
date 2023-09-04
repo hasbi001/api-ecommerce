@@ -2,6 +2,7 @@ const { verifyuser,authjwt } = require("../middleware");
 const authController = require("../controllers/authController");
 const userController = require("../controllers/userController");
 const productController = require("../controllers/productController");
+const quoteController = require("../controllers/quoteController");
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
@@ -27,22 +28,22 @@ module.exports = function(app) {
     app.post("/api/auth/signout", authController.signout);
     
     // api user 
-    app.get("/api/testuser/all", userController.allAccess);
+    app.get("/api/user/all", userController.allAccess);
 
     app.get(
-        "/api/testuser/user",
+        "/api/user/user",
         [authjwt.verifyToken],
         userController.userBoard
     );
 
     app.get(
-        "/api/testuser/mod",
+        "/api/user/mod",
         [authjwt.verifyToken, authjwt.isModerator],
         userController.moderatorBoard
     );
 
     app.get(
-        "/api/testuser/admin",
+        "/api/user/admin",
         [authjwt.verifyToken, authjwt.isAdmin],
         userController.adminBoard
     );
@@ -78,4 +79,16 @@ module.exports = function(app) {
         productController.delete
     );
 
+    // api quote
+    app.post(
+        "/api/quote/addtocart",
+        [authjwt.verifyToken],
+        quoteController.addtocart
+    );
+
+    app.get(
+        "/api/quote/list",
+        [authjwt.verifyToken],
+        quoteController.findAll
+    );
 };
