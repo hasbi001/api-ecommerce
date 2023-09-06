@@ -91,4 +91,10 @@ module.exports = function(app) {
         [authjwt.verifyToken],
         quoteController.findAll
     );
+
+    app.get(
+        "/api/quote/view/:id",
+        [authjwt.verifyToken],
+        quoteController.findOne
+    );
 };

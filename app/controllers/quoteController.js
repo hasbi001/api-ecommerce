@@ -100,3 +100,28 @@ exports.findAll = async (req, res) => {
   }
 };
 
+
+exports.findOne = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const token = req.session.token;
+    const payload = jwt.decode(token, config.secret);
+
+    const quotes = await Quotes.findOne({ where: { id: id } });
+
+    const result = [];
+
+    for (const quote of quotes) {
+        const items = await QuotesItems.findAll({ where: { quoteId: quote.id } });
+        result.push({ quote, items });
+    }
+
+    res.send(result);
+} catch (err) {
+    res.status(500).send({
+        message: err.message || "Some error occurred while getting the list of transactions."
+    });
+}
+};
+
