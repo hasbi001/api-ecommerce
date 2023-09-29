@@ -32,69 +32,69 @@ module.exports = function(app) {
 
     app.get(
         "/api/user/user",
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         userController.userBoard
     );
 
     app.get(
         "/api/user/mod",
-        [authjwt.verifyToken, authjwt.isModerator],
+        // [authjwt.verifyToken, authjwt.isModerator],
         userController.moderatorBoard
     );
 
     app.get(
         "/api/user/admin",
-        [authjwt.verifyToken, authjwt.isAdmin],
+        // [authjwt.verifyToken, authjwt.isAdmin],
         userController.adminBoard
     );
 
     // api product
     app.post(
         "/api/product/list", 
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         productController.findAll
       );
     
       app.post(
         "/api/product/create",
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         productController.create
       );
     
       app.get(
         "/api/product/view/:id",
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         productController.findOne
       );
     
     app.put(
         "/api/product/update/:id",
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         productController.update
     );
 
     app.delete(
         "/api/product/delete/:id",
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         productController.delete
     );
 
     // api quote
     app.post(
         "/api/quote/addtocart",
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         quoteController.addtocart
     );
 
-    app.get(
+    app.post(
         "/api/quote/list",
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         quoteController.findAll
     );
 
     app.get(
         "/api/quote/view/:id",
-        [authjwt.verifyToken],
+        // [authjwt.verifyToken],
         quoteController.findOne
     );
 };

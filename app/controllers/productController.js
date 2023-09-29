@@ -43,21 +43,21 @@ exports.create = (req, res) => {
 // Retrieve all Products from the database.
 exports.findAll = (req, res) => {
     
-    const name = req.body.name;
-    logger.writeToLog(name);
-    var condName = name ? { name: { [Op.like]: `%${name}%` } } : null;
-    const sku = req.body.sku;
-    var condSku = sku ? { sku: { [Op.like]: `%${sku}%` } } : null;
-    var condition;
+    // const name = req.body.name;
+    // logger.writeToLog(name);
+    // var condName = name ? { name: { [Op.like]: `%${name}%` } } : null;
+    // const sku = req.body.sku;
+    // var condSku = sku ? { sku: { [Op.like]: `%${sku}%` } } : null;
+    var condition=null;
     
-    if (condName != null || condSku != null) {
-        condition = {
-            [Op.or]: [
-                condName,
-                condSku
-            ]
-        }
-    }
+    // if (condName != null || condSku != null) {
+    //     condition = {
+    //         [Op.or]: [
+    //             condName,
+    //             condSku
+    //         ]
+    //     }
+    // }
 
     Product.findAll({ where: condition
         }).then(data => {

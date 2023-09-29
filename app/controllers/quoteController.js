@@ -10,7 +10,7 @@ const config = require("../config/auth.config.js");
 
 // addtocart
 exports.addtocart = async (req, res) => {
-  let token = req.session.token;
+  let token = req.body.token;
   const payload = jwt.decode(token, config.secret);
   // res.send(payload);
    // Validate request
@@ -80,7 +80,7 @@ exports.addtocart = async (req, res) => {
 // Retrieve all Products from the database.
 exports.findAll = async (req, res) => {
   try {
-      const token = req.session.token;
+      const token = req.body.token;
       const payload = jwt.decode(token, config.secret);
 
       const quotes = await Quotes.findAll({ where: { userId: payload.id } });
@@ -105,7 +105,7 @@ exports.findOne = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const token = req.session.token;
+    const token = req.body.token;
     const payload = jwt.decode(token, config.secret);
 
     const quotes = await Quotes.findOne({ where: { id: id } });
